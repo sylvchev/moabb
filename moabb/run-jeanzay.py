@@ -109,9 +109,12 @@ def parser_init():
         "-s",
         "--subject",
         dest="subject",
-        type=str,
+        type=int,
         default=None,
         help="Subject to process in dataset",
+    )
+    parser.add_argument(
+        "-prd", "--paradigm", dest="paradigm", type=str, default=None, help="Paradigm"
     )
     return parser
 
@@ -139,7 +142,7 @@ if __name__ == "__main__":
     # call within session benchmark
     benchmark(
         pipelines=options.pipelines,
-        evaluations=options.evaluations,
+        evaluations=["WithinSession"],
         results=options.results,
         overwrite=options.force,
         output=options.output,
@@ -147,4 +150,5 @@ if __name__ == "__main__":
         plot=options.plot,
         contexts=options.context,
         include_datasets=[d],
+        paradigms=[options.paradigm],
     )

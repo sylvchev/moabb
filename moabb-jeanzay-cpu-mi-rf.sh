@@ -17,8 +17,6 @@ module purge # nettoyer les modules herites par default
 # conda deactivate # desactiver les environnements herites par default
 module load tensorflow-gpu/py3/2.11.0 # charger les modules
 
-srun python -u $HOME/src/benchmark-moabb-bnci-rhf.py # executer son script
-
 nb_cpu=10
 in_file="dataset-AlexandreMotorImagery.txt"
 save_dir="/gpfswork/rech/ouw/uhi38pi"
@@ -35,6 +33,6 @@ while read line; do
 	 if [ ! -e ${save_dir}/${dataset}-${subj} ]; then
 		 mkdir -p ${save_dir}/${dataset}-${subj}/results ${save_dir}/${dataset}-${subj}/benchmark
 	 fi
-	 srun python -u run-jeanzay.py --pipelines ${pipelines} --evaluations "WithinSession" --results ${save_dir}/${dataset}-${subj}/results --output ${save_dir}/${dataset}-${subj}/benchmark --threads ${nb_cpu} --contexts ${context} --include-dataset ${dataset} --subject ${subjt}
+	 srun python -u run-jeanzay.py --pipelines ${pipelines} --results ${save_dir}/${dataset}-${subj}/results --output ${save_dir}/${dataset}-${subj}/benchmark --threads ${nb_cpu} --contexts ${context} --paradigm "MotorImagery" --include-dataset ${dataset} --subject ${subj}
 done < ${in_file}
 wait
